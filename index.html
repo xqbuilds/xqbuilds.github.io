@@ -2,165 +2,643 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Constellation of Ideas - Alex Nova</title>
-  <!-- Tailwind CSS CDN -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serene | A Digital Sanctuary</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-     tailwind.config = { darkMode: 'class' };
-   </script>
   <style>
-    /* Custom floating animation for subtle movement */
-    @keyframes floating {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@200;300;400&display=swap');
+
+    :root {
+      --deep-blue: #0f172a;
+      --ocean-blue: #1e3a8a;
+      --night-purple: #4c1d95;
+      --teal: #0d9488;
+      --light-blue: #bae6fd;
     }
-    .animate-floating {
-      animation: floating 6s ease-in-out infinite;
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--deep-blue);
+      overflow-x: hidden;
+      margin: 0;
+      height: 100vh;
+      cursor: none;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* Full-screen experience */
+    .full-experience {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* Improved stars with better blending to ocean */
+    #stars-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    /* Enhanced fluid waves with better transition to stars */
+    .ocean {
+      height: 45%;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      z-index: 2;
+      background: linear-gradient(to bottom, rgba(30, 58, 138, 0), rgba(30, 58, 138, 0.2) 40%, rgba(30, 58, 138, 0.3));
+    }
+
+    .wave {
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18.17 138.3 24.88 207.7 23.68 69.43-1.2 138.74-13.67 209.4-20 66.52-6.22 133.25-8.34 196.1 5.28 27.92 6.04 53.39 14.58 78.2 26.25V0H0z" fill="%231e3a8a" fill-opacity="0.4"/></svg>');
+      position: absolute;
+      width: 200%;
+      height: 100%;
+      animation: wave 20s linear infinite;
+      transform: translate3d(0, 0, 0);
+      background-size: 50% 100%;
+    }
+
+    .wave:nth-child(2) {
+      bottom: 5%;
+      animation: wave 17s linear reverse infinite;
+      opacity: 0.6;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18.17 138.3 24.88 207.7 23.68 69.43-1.2 138.74-13.67 209.4-20 66.52-6.22 133.25-8.34 196.1 5.28 27.92 6.04 53.39 14.58 78.2 26.25V0H0z" fill="%230d9488" fill-opacity="0.3"/></svg>');
+      background-size: 50% 100%;
+    }
+
+    .wave:nth-child(3) {
+      bottom: 10%;
+      animation: wave 15s linear infinite;
+      opacity: 0.4;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18.17 138.3 24.88 207.7 23.68 69.43-1.2 138.74-13.67 209.4-20 66.52-6.22 133.25-8.34 196.1 5.28 27.92 6.04 53.39 14.58 78.2 26.25V0H0z" fill="%234c1d95" fill-opacity="0.2"/></svg>');
+      background-size: 50% 100%;
+    }
+
+    /* Added a 4th wave for more depth */
+    .wave:nth-child(4) {
+      bottom: 15%;
+      animation: wave 23s linear reverse infinite;
+      opacity: 0.2;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18.17 138.3 24.88 207.7 23.68 69.43-1.2 138.74-13.67 209.4-20 66.52-6.22 133.25-8.34 196.1 5.28 27.92 6.04 53.39 14.58 78.2 26.25V0H0z" fill="%23bae6fd" fill-opacity="0.15"/></svg>');
+      background-size: 50% 100%;
+    }
+
+    /* Star-to-ocean gradient overlay */
+    .blending-overlay {
+      position: absolute;
+      bottom: 40%;
+      left: 0;
+      width: 100%;
+      height: 20%;
+      background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.2) 60%, rgba(30, 58, 138, 0.1));
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Surface shimmer effect */
+    .ocean-shimmer {
+      position: absolute;
+      bottom: 35%;
+      width: 100%;
+      height: 10%;
+      background: linear-gradient(90deg, 
+        rgba(186, 230, 253, 0) 0%, 
+        rgba(186, 230, 253, 0.05) 20%, 
+        rgba(186, 230, 253, 0) 40%,
+        rgba(186, 230, 253, 0.08) 60%,
+        rgba(186, 230, 253, 0) 80%
+      );
+      z-index: 4;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    @keyframes wave {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-25%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Added shimmer animation */
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--teal), var(--light-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Floating items for visual interest */
+    .floating-item {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: rgba(186, 230, 253, 0.4);
+      z-index: 5;
+    }
+
+    /* Improved flower garden */
+    .flower-garden {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+    }
+
+    .flower {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      transition: transform 0.5s ease, filter 0.8s ease;
+      opacity: 0.4;
+    }
+
+    .flower svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Improved searchlight */
+    .searchlight {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(186, 230, 253, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 10;
+      filter: blur(5px);
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(186, 230, 253, 0.6);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: screen;
+      box-shadow: 0 0 10px 2px rgba(186, 230, 253, 0.3);
+    }
+
+    .branding {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 100;
+      font-size: 1.5rem;
+      pointer-events: none;
+      opacity: 0.8;
+      letter-spacing: 0.2em;
+      font-weight: 200;
+    }
+
+    /* Subtle instruction */
+    .instruction {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      opacity: 0;
+      z-index: 50;
+      text-align: center;
+      transition: opacity 1s ease;
+      pointer-events: none;
+      letter-spacing: 0.05em;
+      font-weight: 200;
+      white-space: nowrap;
+    }
+
+    /* Subtle scroll indicator */
+    .hint-ring {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(186, 230, 253, 0.2);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 3s infinite;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0; width: 40px; height: 40px; }
+      50% { opacity: 0.5; }
+      100% { opacity: 0; width: 200px; height: 200px; }
     }
   </style>
 </head>
-<body class="font-sans text-gray-800 bg-gradient-to-br from-blue-50 to-indigo-50 dark:text-gray-200 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
-  <!-- Navigation -->
-  <nav class="fixed w-full bg-white bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-80 backdrop-blur-md shadow-md z-20">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <a href="#home" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">My Constellation</a>
-      <div class="flex items-center space-x-4">
-        <a href="#home" class="px-3 py-2 text-lg hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">Home</a>
-        <a href="#about" class="px-3 py-2 text-lg hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">About</a>
-        <a href="#projects" class="px-3 py-2 text-lg hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">Projects</a>
-        <a href="#ideas" class="px-3 py-2 text-lg hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">Ideas</a>
-        <a href="#contact" class="px-3 py-2 text-lg hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors">Contact</a>
-        <button id="darkToggle" onclick="toggleDarkMode()" class="px-3 py-2 text-lg focus:outline-none">
-          🌙
-        </button>
-      </div>
+<body class="text-gray-200">
+  <div class="cursor" id="cursor"></div>
+  <div id="searchlight" class="searchlight"></div>
+  
+  <div class="full-experience">
+    <div class="branding gradient-text">SERENE</div>
+    <div id="stars-container"></div>
+    <div class="blending-overlay"></div>
+    
+    <div class="ocean">
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="ocean-shimmer" id="ocean-shimmer"></div>
+      <div id="floating-items-container"></div>
     </div>
-  </nav>
-
-  <!-- Home Section -->
-  <section id="home" class="pt-24 pb-20 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-gray-800 dark:to-gray-700">
-    <div class="container mx-auto px-6 text-center">
-      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-4 animate-floating">
-        Welcome to My Constellation of Ideas
-      </h1>
-      <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300">
-        A digital mind map of my thoughts, interests, and creative expressions.
-      </p>
+    
+    <div class="flower-garden" id="flower-garden">
+      <!-- Flowers will be generated by JavaScript -->
     </div>
-  </section>
+    
+    <div class="hint-ring"></div>
+    <div class="instruction" id="instruction">Move your cursor to illuminate the garden</div>
+  </div>
 
-  <!-- About Section -->
-  <section id="about" class="py-16 bg-white dark:bg-gray-800">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-indigo-600 dark:text-indigo-400 text-center mb-8">About Me</h2>
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">
-          I'm Alex Nova—a curious mind at the crossroads of art and technology. My journey is about connecting scattered ideas into a vibrant tapestry of creative expression.
-        </p>
-        <p class="text-lg text-gray-700 dark:text-gray-300">
-          I thrive on exploring new perspectives, and my work is a constantly evolving diary that captures moments of insight and inspiration.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="py-16 bg-gradient-to-r from-green-100 to-blue-100 dark:from-gray-700 dark:to-gray-600">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-indigo-600 dark:text-indigo-400 text-center mb-8">Projects</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow">
-          <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-2">Digital Sketchbook</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            A curated collection of digital art experiments, sketches, and creative designs that push the boundaries of imagination.
-          </p>
-        </div>
-        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow">
-          <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-2">Interactive Map</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Explore the connections between my ideas, where every project and thought is a star in my creative universe.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Ideas Section -->
-  <section id="ideas" class="py-16 bg-white dark:bg-gray-800">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-indigo-600 dark:text-indigo-400 text-center mb-8">Ideas</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-indigo-50 dark:bg-gray-700 rounded-lg shadow-lg p-6 hover:scale-105 transform transition duration-300">
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">Future Tech</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Delving into emerging technologies and the transformative potential of innovation.
-          </p>
-        </div>
-        <div class="bg-pink-50 dark:bg-gray-700 rounded-lg shadow-lg p-6 hover:scale-105 transform transition duration-300">
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">Artistic Ventures</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            A fusion of creativity and technology that brings art to life in interactive ways.
-          </p>
-        </div>
-        <div class="bg-yellow-50 dark:bg-gray-700 rounded-lg shadow-lg p-6 hover:scale-105 transform transition duration-300">
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">Mindful Moments</h3>
-          <p class="text-gray-600 dark:text-gray-400">
-            Reflections on life, creativity, and the subtle interplay between chaos and order.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-gray-700 dark:to-gray-600">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-indigo-600 dark:text-indigo-400 text-center mb-8">Contact</h2>
-      <div class="max-w-md mx-auto">
-        <form class="bg-white dark:bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div class="mb-4">
-            <label for="name" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Name</label>
-            <input id="name" type="text" placeholder="Your Name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline">
-          </div>
-          <div class="mb-4">
-            <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Email</label>
-            <input id="email" type="email" placeholder="Your Email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline">
-          </div>
-          <div class="mb-4">
-            <label for="message" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Message</label>
-            <textarea id="message" rows="4" placeholder="Your Message" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-800 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-          </div>
-          <div class="flex items-center justify-center">
-            <button type="button" onclick="submitForm()" class="bg-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Send Message
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-6 bg-gray-200 dark:bg-gray-800 text-center">
-    <p class="text-gray-600 dark:text-gray-300">&copy; 2025 Alex Nova. All rights reserved.</p>
-  </footer>
-
-  <!-- Inline JavaScript -->
   <script>
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-      const toggleBtn = document.getElementById('darkToggle');
-      if (document.documentElement.classList.contains('dark')) {
-        toggleBtn.textContent = '☀️';
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    
+    document.addEventListener('mousemove', function(e) {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+    });
+    
+    // Show instruction after a delay
+    setTimeout(() => {
+      document.getElementById('instruction').style.opacity = "0.7";
+      // Fade out instruction after user moves mouse
+      document.addEventListener('mousemove', function fadeOut() {
+        setTimeout(() => {
+          document.getElementById('instruction').style.opacity = "0";
+        }, 2000);
+        document.removeEventListener('mousemove', fadeOut);
+      });
+    }, 1500);
+
+    // Create stars with enhanced twinkling and better density at top
+    const starsContainer = document.getElementById('stars-container');
+    const numberOfStars = 300;
+
+    for (let i = 0; i < numberOfStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      
+      // Variable star size based on position (smaller at bottom)
+      const yPercent = Math.random() * 100;
+      const sizeMultiplier = yPercent < 60 ? 1 : (1 - (yPercent - 60) / 40 * 0.7);
+      const size = (Math.random() * 2 + 0.5) * sizeMultiplier;
+      
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      
+      // Random position with higher density at top
+      const x = Math.random() * 100;
+      let y;
+      
+      // Create higher density at top, gradually decreasing
+      const randomVal = Math.random();
+      if (randomVal < 0.7) {
+        // 70% of stars in top 70%
+        y = Math.random() * 70;
       } else {
-        toggleBtn.textContent = '🌙';
+        // 30% of stars in bottom 30%
+        y = 70 + Math.random() * 30;
       }
+      
+      star.style.left = `${x}%`;
+      star.style.top = `${y}%`;
+      
+      // Random twinkling with reduced intensity near ocean
+      const intensity = y < 60 ? (Math.random() * 0.8 + 0.2) : (Math.random() * 0.5 + 0.1);
+      const duration = 3 + Math.random() * 5;
+      const delay = Math.random() * 5;
+      
+      starsContainer.appendChild(star);
+      
+      // Animate stars with GSAP
+      gsap.to(star, {
+        opacity: intensity,
+        duration: duration,
+        delay: delay,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
     }
-    function submitForm() {
-      // Simulated form submission
-      alert("Thank you for your message! I'll get back to you soon.");
+
+    // Create floating items on the ocean surface
+    const floatingItemsContainer = document.getElementById('floating-items-container');
+    const numberOfFloatingItems = 20;
+    
+    for (let i = 0; i < numberOfFloatingItems; i++) {
+      const item = document.createElement('div');
+      item.classList.add('floating-item');
+      
+      // Random position on the ocean surface
+      const x = Math.random() * 100;
+      const y = 20 + Math.random() * 25; // Position relative to ocean height
+      
+      item.style.left = `${x}%`;
+      item.style.bottom = `${y}%`;
+      
+      // Random size
+      const size = 2 + Math.random() * 4;
+      item.style.width = `${size}px`;
+      item.style.height = `${size}px`;
+      
+      // Random opacity
+      item.style.opacity = 0.1 + Math.random() * 0.3;
+      
+      floatingItemsContainer.appendChild(item);
+      
+      // Animate floating motion
+      gsap.to(item, {
+        x: `-=${30 + Math.random() * 70}`,
+        y: `-=${5 + Math.random() * 10}`,
+        duration: 10 + Math.random() * 20,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
     }
+
+    // Animate shimmer effect
+    const shimmer = document.getElementById('ocean-shimmer');
+    gsap.to(shimmer, {
+      x: '100%',
+      duration: 8,
+      repeat: -1,
+      ease: "sine.inOut"
+    });
+
+    // Generate flowers in the garden with improved positioning
+    const flowerGarden = document.getElementById('flower-garden');
+    const flowerColors = ['#FF69B4', '#FF6347', '#BA55D3', '#20B2AA', '#FF8C00', '#00CED1', '#9370DB', '#48D1CC'];
+    const numberOfFlowers = 40;
+    
+    // Improved flower SVG templates
+    const flowerTemplates = [
+      // Flower 1 - Simple daisy
+      `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="15" fill="#FFFF00" opacity="0.9" />
+        <circle cx="50" cy="20" r="10" fill="{color}" opacity="0.8" />
+        <circle cx="75" cy="30" r="10" fill="{color}" opacity="0.8" />
+        <circle cx="80" cy="50" r="10" fill="{color}" opacity="0.8" />
+        <circle cx="70" cy="75" r="10" fill="{color}" opacity="0.8" />
+        <circle cx="50" cy="80" r="10" fill="{color}" opacity="0.8" />
+        <circle cx="30" cy="75" r="10" fill="{color}" opacity="0.8" />
+        <circle cx="20" cy="50" r="10" fill="{color}" opacity="0.8" />
+        <circle cx="25" cy="30" r="10" fill="{color}" opacity="0.8" />
+      </svg>`,
+      
+      // Flower 2 - Rose-like
+      `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50,30 C60,10 80,20 80,40 C80,60 60,80 50,80 C40,80 20,60 20,40 C20,20 40,10 50,30" fill="{color}" opacity="0.9" />
+        <circle cx="50" cy="50" r="10" fill="#FFFF00" opacity="0.9" />
+      </svg>`,
+      
+      // Flower 3 - Tulip-like
+      `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M45,20 C20,40 20,70 50,80 C80,70 80,40 55,20 Z" fill="{color}" opacity="0.9" />
+        <path d="M50,80 L50,100" stroke="green" stroke-width="4" opacity="0.7" />
+      </svg>`,
+      
+      // Flower 4 - Water lily
+      `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="12" fill="#FFFF77" opacity="0.9" />
+        <path d="M50,40 L60,25 L70,20 L80,25 L85,35 L80,45 L70,50 L60,45 Z" fill="{color}" opacity="0.85" />
+        <path d="M50,40 L40,25 L30,20 L20,25 L15,35 L20,45 L30,50 L40,45 Z" fill="{color}" opacity="0.85" />
+        <path d="M50,60 L60,75 L70,80 L80,75 L85,65 L80,55 L70,50 L60,55 Z" fill="{color}" opacity="0.85" />
+        <path d="M50,60 L40,75 L30,80 L20,75 L15,65 L20,55 L30,50 L40,55 Z" fill="{color}" opacity="0.85" />
+      </svg>`
+    ];
+    
+    for (let i = 0; i < numberOfFlowers; i++) {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      
+      // Distribute flowers with slight clustering
+      let x, y;
+      
+      // Improved distribution with clusters
+      if (Math.random() < 0.7) {
+        // 70% of flowers distribute evenly
+        x = 5 + Math.random() * 90;
+        y = 5 + Math.random() * 90;
+      } else {
+        // 30% create clusters
+        const clusterX = 20 + Math.random() * 60;
+        const clusterY = 20 + Math.random() * 60;
+        x = clusterX + (Math.random() * 20 - 10);
+        y = clusterY + (Math.random() * 20 - 10);
+      }
+      
+      // Ensure flowers stay in bounds
+      x = Math.max(5, Math.min(95, x));
+      y = Math.max(5, Math.min(95, y));
+      
+      flower.style.left = `${x}%`;
+      flower.style.top = `${y}%`;
+      
+      // Random size variations
+      const scale = 0.7 + Math.random() * 0.6;
+      flower.style.transform = `scale(${scale})`;
+      
+      // Random flower color and template
+      const color = flowerColors[Math.floor(Math.random() * flowerColors.length)];
+      const templateIndex = Math.floor(Math.random() * flowerTemplates.length);
+      const flowerSVG = flowerTemplates[templateIndex].replace(/{color}/g, color);
+      
+      flower.innerHTML = flowerSVG;
+      flowerGarden.appendChild(flower);
+      
+      // Create more natural floating animation with slight rotation
+      gsap.to(flower, {
+        y: '-=8',
+        rotation: Math.random() * 4 - 2,
+        duration: 2 + Math.random() * 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    }
+
+    // Enhanced searchlight effect following cursor
+    const searchlight = document.getElementById('searchlight');
+    let mouseX = 0, mouseY = 0;
+    let currentX = 0, currentY = 0;
+    
+    document.addEventListener('mousemove', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    // Enhanced fluid animation for the searchlight
+    function animateSearchLight() {
+      // Smooth following with easing
+      currentX += (mouseX - currentX) * 0.08;
+      currentY += (mouseY - currentY) * 0.08;
+      
+      searchlight.style.left = `${currentX}px`;
+      searchlight.style.top = `${currentY}px`;
+      
+      // Illuminate flowers based on proximity to searchlight with improved effects
+      const flowers = document.querySelectorAll('.flower');
+      
+      flowers.forEach(flower => {
+        const flowerRect = flower.getBoundingClientRect();
+        const flowerX = flowerRect.left + flowerRect.width / 2;
+        const flowerY = flowerRect.top + flowerRect.height / 2;
+        
+        // Calculate distance between searchlight and flower
+        const dx = flowerX - currentX;
+        const dy = flowerY - currentY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // Adjust brightness based on proximity with more dramatic effect
+        const maxDistance = 250;
+        const brightness = Math.max(1, 1 + (maxDistance - Math.min(distance, maxDistance)) / maxDistance * 3);
+        
+        // Apply improved glow and scale effect
+        if (distance < maxDistance) {
+          // Calculate how close to center (0 is center, 1 is edge of radius)
+          const normalizedDistance = distance / maxDistance;
+          
+          // Different glow colors based on position in the searchlight
+          const glowIntensity = (1 - normalizedDistance) * 15;
+          const glowColor = `rgba(255, 255, 255, ${(1 - normalizedDistance) * 0.7})`;
+          
+          flower.style.filter = `brightness(${brightness}) drop-shadow(0 0 ${glowIntensity}px ${glowColor})`;
+          flower.style.transform = `scale(${Math.min(1.5, 1 + (1 - normalizedDistance) * 0.5)})`;
+          flower.style.zIndex = Math.floor((maxDistance - distance) / 10);
+          flower.style.opacity = Math.min(1, 0.4 + (1 - normalizedDistance) * 0.6);
+        } else {
+          flower.style.filter = 'brightness(1)';
+          flower.style.transform = 'scale(1)';
+          flower.style.zIndex = 1;
+          flower.style.opacity = 0.4;
+        }
+      });
+      
+      // Also add interaction with floating items on water
+      const floatingItems = document.querySelectorAll('.floating-item');
+      
+      floatingItems.forEach(item => {
+        const itemRect = item.getBoundingClientRect();
+        const itemX = itemRect.left + itemRect.width / 2;
+        const itemY = itemRect.top + itemRect.height / 2;
+        
+        // Calculate distance between searchlight and item
+        const dx = itemX - currentX;
+        const dy = itemY - currentY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // Enhance shimmer on water items
+        const maxDistance = 300;
+        if (distance < maxDistance) {
+          const normalizedDistance = distance / maxDistance;
+          const glowIntensity = (1 - normalizedDistance) * 8;
+          
+          item.style.boxShadow = `0 0 ${glowIntensity}px ${glowIntensity}px rgba(186, 230, 253, ${(1 - normalizedDistance) * 0.5})`;
+          item.style.opacity = Math.min(0.8, 0.2 + (1 - normalizedDistance) * 0.6);
+        } else {
+          item.style.boxShadow = 'none';
+          item.style.opacity = 0.2;
+        }
+      });
+      
+      requestAnimationFrame(animateSearchLight);
+    }
+    
+    animateSearchLight();
+
+    // Enhanced wave animation with vertical motion
+    const waves = document.querySelectorAll('.ocean .wave');
+    
+    waves.forEach((wave, index) => {
+      // Each wave gets different amplitude
+      const amplitude = 8 + index * 3;
+      
+      gsap.to(wave, {
+        y: amplitude,
+        duration: 3 + index * 1.5,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true
+      });
+    });
+
+    // Initial animation to introduce the experience
+    gsap.from('.branding', {
+      opacity: 0,
+      y: -20,
+      duration: 1.5,
+      delay: 0.5,
+      ease: "power2.out"
+    });
+
+    gsap.from('.hint-ring', {
+      opacity: 0,
+      scale: 0.5,
+      duration: 1,
+      delay: 1,
+      ease: "power2.out"
+    });
+
+    // Make ocean waves gradually appear
+    gsap.from('.ocean', {
+      opacity: 0,
+      y: 50,
+      duration: 2,
+      ease: "power2.out",
+      delay: 0.3
+    });
+
+    // Make flowers gradually appear
+    gsap.from('.flower', {
+      opacity: 0,
+      scale: 0,
+      duration: 1,
+      stagger: 0.02,
+      ease: "back.out(1.7)",
+      delay: 0.5
+    });
   </script>
 </body>
 </html>
