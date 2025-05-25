@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -7,207 +8,494 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-color: #000;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
       color: white;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Background layers */
+    /* Enhanced animated starfield */
     .stars {
-      background: url('https://raw.githubusercontent.com/eeeps/starfield/master/starfield.png') repeat;
-      background-size: cover;
+      position: relative;
+      background: transparent;
       height: 200px;
+      overflow: hidden;
     }
 
-    .mountains {
-      background: linear-gradient(to top, #0a0a0a 0%, #111111 40%, #222222 100%);
-      background-blend-mode: overlay;
-      height: 150px;
+    .stars::before,
+    .stars::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
     }
 
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 4s infinite;
+    }
+
+    .star:nth-child(2n) {
+      animation-delay: 1s;
+      background: #60a5fa;
+    }
+
+    .star:nth-child(3n) {
+      animation-delay: 2s;
+      background: #a78bfa;
+    }
+
+    .star:nth-child(4n) {
+      animation-delay: 0.5s;
+      background: #34d399;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Enhanced waves with better animation */
     .waves {
-      background: linear-gradient(to top, #0d1b2a 0%, #000 100%);
-      clip-path: ellipse(80% 100% at 50% 100%);
-      height: 150px;
+      position: relative;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      height: 120px;
+      overflow: hidden;
     }
 
-    /* Card styles */
-    .glow-card {
-      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    .wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      animation: wave-move 8s ease-in-out infinite;
+    }
+
+    .wave:nth-child(2) {
+      animation-delay: -2s;
+      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.08), transparent);
+    }
+
+    .wave:nth-child(3) {
+      animation-delay: -4s;
+      background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.06), transparent);
+    }
+
+    @keyframes wave-move {
+      0%, 100% { transform: translateX(-50%) translateY(0px); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    /* Unique card styles for each platform */
+    .card-base {
+      position: relative;
+      background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 0 transparent;
+      backdrop-filter: blur(16px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 16px;
+      overflow: hidden;
     }
 
-    .glow-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 16px rgba(0,255,255,0.15), 0 0 30px rgba(255,0,255,0.08);
+    .card-base::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent, rgba(255,255,255,0.02), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card-base:hover::before {
+      opacity: 1;
+    }
+
+    /* LinkedIn - Professional Blue */
+    .linkedin-card {
+      border-color: rgba(0, 119, 181, 0.3);
+    }
+    .linkedin-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 119, 181, 0.15), 0 0 30px rgba(0, 119, 181, 0.1);
+      border-color: rgba(0, 119, 181, 0.6);
+      background: linear-gradient(135deg, rgba(0, 119, 181, 0.05), rgba(0, 119, 181, 0.02));
+    }
+
+    /* Twitter/X - Electric Blue */
+    .twitter-card {
+      border-color: rgba(29, 161, 242, 0.3);
+    }
+    .twitter-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(29, 161, 242, 0.15), 0 0 30px rgba(29, 161, 242, 0.1);
+      border-color: rgba(29, 161, 242, 0.6);
+      background: linear-gradient(135deg, rgba(29, 161, 242, 0.05), rgba(29, 161, 242, 0.02));
+    }
+
+    /* Instagram - Gradient Pink/Orange */
+    .instagram-card {
+      border-color: rgba(225, 48, 108, 0.3);
+    }
+    .instagram-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(225, 48, 108, 0.15), 0 0 30px rgba(251, 146, 60, 0.1);
+      border-color: rgba(225, 48, 108, 0.6);
+      background: linear-gradient(135deg, rgba(225, 48, 108, 0.05), rgba(251, 146, 60, 0.02));
+    }
+
+    /* YouTube - Red */
+    .youtube-card {
+      border-color: rgba(255, 0, 0, 0.3);
+    }
+    .youtube-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(255, 0, 0, 0.15), 0 0 30px rgba(255, 0, 0, 0.1);
+      border-color: rgba(255, 0, 0, 0.6);
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.05), rgba(255, 0, 0, 0.02));
+    }
+
+    /* Medium - Green */
+    .medium-card {
+      border-color: rgba(0, 171, 85, 0.3);
+    }
+    .medium-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 171, 85, 0.15), 0 0 30px rgba(0, 171, 85, 0.1);
+      border-color: rgba(0, 171, 85, 0.6);
+      background: linear-gradient(135deg, rgba(0, 171, 85, 0.05), rgba(0, 171, 85, 0.02));
+    }
+
+    /* GitHub - Purple */
+    .github-card {
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+    .github-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15), 0 0 30px rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.6);
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.02));
+    }
+
+    /* Research Nest - Emerald */
+    .research-card {
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .research-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15), 0 0 30px rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.6);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
+    }
+
+    /* AutoProject - Violet */
+    .autoproject-card {
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+    .autoproject-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15), 0 0 30px rgba(168, 85, 247, 0.1);
+      border-color: rgba(168, 85, 247, 0.6);
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(168, 85, 247, 0.02));
+    }
+
+    /* TechFlix - Pink */
+    .techflix-card {
+      border-color: rgba(236, 72, 153, 0.3);
+    }
+    .techflix-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.15), 0 0 30px rgba(236, 72, 153, 0.1);
+      border-color: rgba(236, 72, 153, 0.6);
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.05), rgba(236, 72, 153, 0.02));
+    }
+
+    /* AltCSS - Amber */
+    .altcss-card {
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    .altcss-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(245, 158, 11, 0.15), 0 0 30px rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.6);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02));
+    }
+
+    /* XQBuilds - Cyan */
+    .xqbuilds-card {
+      border-color: rgba(6, 182, 212, 0.3);
+    }
+    .xqbuilds-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15), 0 0 30px rgba(6, 182, 212, 0.1);
+      border-color: rgba(6, 182, 212, 0.6);
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(6, 182, 212, 0.02));
+    }
+
+    /* Self Learning - Indigo */
+    .selflearning-card {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+    .selflearning-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15), 0 0 30px rgba(99, 102, 241, 0.1);
+      border-color: rgba(99, 102, 241, 0.6);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.02));
+    }
+
+    /* Eden - Teal */
+    .eden-card {
+      border-color: rgba(20, 184, 166, 0.3);
+    }
+    .eden-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(20, 184, 166, 0.15), 0 0 30px rgba(20, 184, 166, 0.1);
+      border-color: rgba(20, 184, 166, 0.6);
+      background: linear-gradient(135deg, rgba(20, 184, 166, 0.05), rgba(20, 184, 166, 0.02));
+    }
+
+    /* Coming Soon - Neutral */
+    .coming-soon-card {
+      border-color: rgba(115, 115, 115, 0.3);
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .fade-in {
-      animation: fadeIn 0.8s ease forwards;
+      animation: fadeInUp 0.8s ease forwards;
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(30px);
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
   </style>
 </head>
-<body class="flex flex-col items-center">
+<body class="flex flex-col items-center relative">
 
-  <!-- Stars -->
-  <div class="stars w-full"></div>
+  <!-- Floating particles -->
+  <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="particle" style="left: 20%; animation-delay: 5s;"></div>
+  <div class="particle" style="left: 30%; animation-delay: 10s;"></div>
+  <div class="particle" style="left: 40%; animation-delay: 15s;"></div>
+  <div class="particle" style="left: 50%; animation-delay: 2s;"></div>
+  <div class="particle" style="left: 60%; animation-delay: 7s;"></div>
+  <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+  <div class="particle" style="left: 80%; animation-delay: 17s;"></div>
+  <div class="particle" style="left: 90%; animation-delay: 3s;"></div>
+
+  <!-- Enhanced Stars -->
+  <div class="stars w-full">
+    <div class="star" style="top: 20%; left: 10%;"></div>
+    <div class="star" style="top: 30%; left: 25%;"></div>
+    <div class="star" style="top: 15%; left: 40%;"></div>
+    <div class="star" style="top: 40%; left: 60%;"></div>
+    <div class="star" style="top: 25%; left: 75%;"></div>
+    <div class="star" style="top: 35%; left: 85%;"></div>
+    <div class="star" style="top: 10%; left: 90%;"></div>
+    <div class="star" style="top: 45%; left: 5%;"></div>
+    <div class="star" style="top: 20%; left: 70%;"></div>
+    <div class="star" style="top: 35%; left: 45%;"></div>
+    <div class="star" style="top: 15%; left: 65%;"></div>
+    <div class="star" style="top: 40%; left: 20%;"></div>
+    <div class="star" style="top: 10%; left: 55%;"></div>
+    <div class="star" style="top: 45%; left: 35%;"></div>
+    <div class="star" style="top: 25%; left: 15%;"></div>
+  </div>
 
   <!-- Header -->
-  <header class="text-center mt-6 mb-14">
-    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-r from-teal-400 via-cyan-500 to-indigo-400 text-transparent bg-clip-text mb-2">
+  <header class="text-center mt-8 mb-16 z-10">
+    <h1 class="text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-transparent bg-clip-text mb-4 drop-shadow-lg">
       ✨ XQ Builds
     </h1>
-    <p class="text-sm text-gray-400 max-w-md mx-auto">
+    <p class="text-lg text-gray-300 max-w-lg mx-auto leading-relaxed">
       Curated projects, creative sparks, and digital frontiers by XQBuilds.
     </p>
   </header>
 
   <!-- Grid of Links -->
-  <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 max-w-6xl w-full">
+  <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 max-w-7xl w-full z-10">
 
-    <a href="https://www.linkedin.com/in/aditya-vivek-thota/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://www.linkedin.com/in/aditya-vivek-thota/" class="card-base linkedin-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-teal-300 font-semibold text-lg">LinkedIn 🌐</span>
-        <span>💼</span>
+        <span class="text-blue-300 font-bold text-xl">LinkedIn</span>
+        <span class="text-2xl">💼</span>
       </div>
-      <p class="text-sm text-gray-400">Connect with my professional journey.</p>
+      <p class="text-gray-300">Connect with my professional journey.</p>
     </a>
 
-    <a href="https://x.com/xq_is_here" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://x.com/xq_is_here" class="card-base twitter-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-blue-400 font-semibold text-lg">Twitter / X 🐦</span>
-        <span>📢</span>
+        <span class="text-sky-300 font-bold text-xl">Twitter / X</span>
+        <span class="text-2xl">🐦</span>
       </div>
-      <p class="text-sm text-gray-400">Thoughts, threads & tech tweets.</p>
+      <p class="text-gray-300">Thoughts, threads & tech tweets.</p>
     </a>
 
-    <a href="https://www.instagram.com/xqbuilds" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://www.instagram.com/xqbuilds" class="card-base instagram-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-pink-400 font-semibold text-lg">Instagram 📸</span>
-        <span>🎨</span>
+        <span class="text-pink-300 font-bold text-xl">Instagram</span>
+        <span class="text-2xl">📸</span>
       </div>
-      <p class="text-sm text-gray-400">Snapshots from my creative side.</p>
+      <p class="text-gray-300">Snapshots from my creative side.</p>
     </a>
 
-    <a href="https://www.youtube.com/@xqbuilds" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://www.youtube.com/@xqbuilds" class="card-base youtube-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-red-400 font-semibold text-lg">YouTube 🎥</span>
-        <span>▶️</span>
+        <span class="text-red-300 font-bold text-xl">YouTube</span>
+        <span class="text-2xl">🎥</span>
       </div>
-      <p class="text-sm text-gray-400">Visual experiments & explainers.</p>
+      <p class="text-gray-300">Visual experiments & explainers.</p>
     </a>
 
-    <a href="https://xq-is-here.medium.com/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://xq-is-here.medium.com/" class="card-base medium-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-white font-semibold text-lg">Medium ✍️</span>
-        <span>📚</span>
+        <span class="text-green-300 font-bold text-xl">Medium</span>
+        <span class="text-2xl">✍️</span>
       </div>
-      <p class="text-sm text-gray-400">Essays, tutorials & explorations in tech.</p>
+      <p class="text-gray-300">Essays, tutorials & explorations in tech.</p>
     </a>
 
-    <a href="https://github.com/aditya-xq" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://github.com/aditya-xq" class="card-base github-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-gray-300 font-semibold text-lg">GitHub 💻</span>
-        <span>🚀</span>
+        <span class="text-purple-300 font-bold text-xl">GitHub</span>
+        <span class="text-2xl">💻</span>
       </div>
-      <p class="text-sm text-gray-400">Codebases behind the builds.</p>
+      <p class="text-gray-300">Codebases behind the builds.</p>
     </a>
 
-    <a href="https://medium.com/the-research-nest" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://medium.com/the-research-nest" class="card-base research-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-green-300 font-semibold text-lg">The Research Nest 🪺</span>
-        <span>🧠</span>
+        <span class="text-emerald-300 font-bold text-xl">The Research Nest</span>
+        <span class="text-2xl">🪺</span>
       </div>
-      <p class="text-sm text-gray-400">STEM stories & scientific ideas.</p>
+      <p class="text-gray-300">STEM stories & scientific ideas.</p>
     </a>
 
-    <a href="https://github.com/aditya-xq/AutoProject" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://github.com/aditya-xq/AutoProject" class="card-base autoproject-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-purple-300 font-semibold text-lg">AutoProject 🤖</span>
-        <span>🛠️</span>
+        <span class="text-violet-300 font-bold text-xl">AutoProject</span>
+        <span class="text-2xl">🤖</span>
       </div>
-      <p class="text-sm text-gray-400">Build boilerplates at lightspeed.</p>
+      <p class="text-gray-300">Build boilerplates at lightspeed.</p>
     </a>
 
-    <a href="https://techflix.xqbuilds.com/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://techflix.xqbuilds.com/" class="card-base techflix-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-pink-300 font-semibold text-lg">TechFlix 📺</span>
-        <span>🎬</span>
+        <span class="text-pink-400 font-bold text-xl">TechFlix</span>
+        <span class="text-2xl">📺</span>
       </div>
-      <p class="text-sm text-gray-400">150+ tech blogs on a single feed!</p>
+      <p class="text-gray-300">150+ tech blogs on a single feed!</p>
     </a>
 
-    <a href="https://www.altcss.com/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://www.altcss.com/" class="card-base altcss-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-yellow-300 font-semibold text-lg">AltCSS 🎨</span>
-        <span>🧵</span>
+        <span class="text-amber-300 font-bold text-xl">AltCSS</span>
+        <span class="text-2xl">🎨</span>
       </div>
-      <p class="text-sm text-gray-400">Opinionated, Offbeat, Lightweight CSS Component Library</p>
+      <p class="text-gray-300">Opinionated, Offbeat, Lightweight CSS Component Library</p>
     </a>
 
-    <a href="https://xqbuilds.com/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://xqbuilds.com/" class="card-base xqbuilds-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-blue-300 font-semibold text-lg">xqbuilds 🌐</span>
-        <span>✨</span>
+        <span class="text-cyan-300 font-bold text-xl">xqbuilds</span>
+        <span class="text-2xl">🌐</span>
       </div>
-      <p class="text-sm text-gray-400">The digital garden of everything XQ.</p>
+      <p class="text-gray-300">The digital garden of everything XQ.</p>
     </a>
 
-    <a href="https://medium.com/school-of-self-learning" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://medium.com/school-of-self-learning" class="card-base selflearning-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-indigo-300 font-semibold text-lg">Self Learning School 🏫</span>
-        <span>🧩</span>
+        <span class="text-indigo-300 font-bold text-xl">Self Learning School</span>
+        <span class="text-2xl">🏫</span>
       </div>
-      <p class="text-sm text-gray-400">Learn anything. Anytime. Anywhere.</p>
+      <p class="text-gray-300">Learn anything. Anytime. Anywhere.</p>
     </a>
 
-    <div class="glow-card fade-in p-5 rounded-xl space-y-1 opacity-50 cursor-not-allowed">
+    <div class="card-base coming-soon-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="font-semibold text-lg">The Next Weave 🕸️</span>
-        <span>⏳</span>
+        <span class="text-gray-400 font-bold text-xl">The Next Weave</span>
+        <span class="text-2xl">⏳</span>
       </div>
-      <p class="text-sm text-gray-400">Coming soon: your future network.</p>
+      <p class="text-gray-400">Coming soon: your future network.</p>
     </div>
 
-    <a href="https://medium.com/the-eden-of-xq" class="glow-card fade-in p-5 rounded-xl space-y-1">
+    <a href="https://medium.com/the-eden-of-xq" class="card-base eden-card fade-in p-6 space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-emerald-300 font-semibold text-lg">Eden of XQ 📖</span>
-        <span>🌿</span>
+        <span class="text-teal-300 font-bold text-xl">Eden of XQ</span>
+        <span class="text-2xl">📖</span>
       </div>
-      <p class="text-sm text-gray-400">Personal reflections and digital diaries.</p>
+      <p class="text-gray-300">Personal reflections and digital diaries.</p>
     </a>
 
   </main>
 
-  <!-- Mountains -->
-  <div class="mountains w-full mt-24"></div>
-
-  <!-- Waves -->
-  <div class="waves w-full"></div>
+  <!-- Enhanced Waves -->
+  <div class="waves w-full mt-32 relative">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
 
   <!-- Footer -->
-  <footer class="text-sm text-gray-500 mt-10 mb-6 text-center">
+  <footer class="text-sm text-gray-400 mt-12 mb-8 text-center">
     © 2025 XQBuilds · All rights reserved
   </footer>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
+      // Staggered fade-in animation
       document.querySelectorAll('.fade-in').forEach((el, i) => {
-        el.style.animationDelay = `${i * 0.06}s`;
-        el.classList.add('fade-in');
+        el.style.animationDelay = `${i * 0.1}s`;
       });
+
+      // Add random particles periodically
+      setInterval(() => {
+        if (document.querySelectorAll('.particle').length < 15) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDelay = '0s';
+          document.body.appendChild(particle);
+          
+          setTimeout(() => {
+            particle.remove();
+          }, 20000);
+        }
+      }, 3000);
     });
   </script>
 </body>
