@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -8,18 +7,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      background: #000000;
       color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Enhanced animated starfield */
+    /* Enhanced animated starfield - night sky */
     .stars {
       position: relative;
       background: transparent;
-      height: 200px;
+      height: 300px;
       overflow: hidden;
     }
 
@@ -36,26 +36,45 @@
 
     .star {
       position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
       border-radius: 50%;
       animation: twinkle 4s infinite;
     }
 
+    .star-small {
+      width: 1px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .star-medium {
+      width: 2px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+    }
+
+    .star-large {
+      width: 3px;
+      height: 3px;
+      background: white;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
     .star:nth-child(2n) {
       animation-delay: 1s;
-      background: #60a5fa;
+      background: rgba(173, 216, 230, 0.9);
+      box-shadow: 0 0 8px rgba(173, 216, 230, 0.4);
     }
 
     .star:nth-child(3n) {
       animation-delay: 2s;
-      background: #a78bfa;
+      background: rgba(255, 255, 255, 0.7);
     }
 
     .star:nth-child(4n) {
       animation-delay: 0.5s;
-      background: #34d399;
+      background: rgba(255, 250, 205, 0.8);
+      box-shadow: 0 0 6px rgba(255, 250, 205, 0.3);
     }
 
     @keyframes twinkle {
@@ -63,38 +82,85 @@
       50% { opacity: 1; transform: scale(1.2); }
     }
 
-    /* Enhanced waves with better animation */
-    .waves {
-      position: relative;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-      height: 120px;
+    /* Deep ocean fireflies */
+    .fireflies {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 400px;
+      pointer-events: none;
       overflow: hidden;
     }
 
-    .wave {
+    .firefly {
       position: absolute;
-      bottom: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      animation: firefly-float 6s infinite ease-in-out;
+    }
+
+    .firefly-blue {
+      background: radial-gradient(circle, rgba(0, 191, 255, 0.8) 0%, rgba(0, 191, 255, 0.4) 50%, transparent 100%);
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.6), 0 0 20px rgba(0, 191, 255, 0.3);
+    }
+
+    .firefly-cyan {
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.7) 0%, rgba(0, 255, 255, 0.3) 50%, transparent 100%);
+      box-shadow: 0 0 8px rgba(0, 255, 255, 0.5), 0 0 16px rgba(0, 255, 255, 0.2);
+    }
+
+    .firefly-teal {
+      background: radial-gradient(circle, rgba(64, 224, 208, 0.8) 0%, rgba(64, 224, 208, 0.4) 50%, transparent 100%);
+      box-shadow: 0 0 12px rgba(64, 224, 208, 0.6), 0 0 24px rgba(64, 224, 208, 0.3);
+    }
+
+    .firefly-green {
+      background: radial-gradient(circle, rgba(0, 255, 127, 0.7) 0%, rgba(0, 255, 127, 0.3) 50%, transparent 100%);
+      box-shadow: 0 0 10px rgba(0, 255, 127, 0.5), 0 0 20px rgba(0, 255, 127, 0.2);
+    }
+
+    @keyframes firefly-float {
+      0%, 100% { 
+        transform: translateY(0px) translateX(0px); 
+        opacity: 0.4; 
+      }
+      25% { 
+        transform: translateY(-20px) translateX(10px); 
+        opacity: 0.8; 
+      }
+      50% { 
+        transform: translateY(-10px) translateX(-15px); 
+        opacity: 1; 
+      }
+      75% { 
+        transform: translateY(-30px) translateX(5px); 
+        opacity: 0.6; 
+      }
+    }
+
+    /* Transition gradient overlay */
+    .transition-overlay {
+      position: fixed;
+      top: 0;
       left: 0;
-      width: 200%;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-      animation: wave-move 8s ease-in-out infinite;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 20%,
+        rgba(0, 20, 40, 0.1) 40%,
+        rgba(0, 40, 80, 0.2) 60%,
+        rgba(0, 60, 120, 0.3) 80%,
+        rgba(0, 80, 160, 0.4) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .wave:nth-child(2) {
-      animation-delay: -2s;
-      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.08), transparent);
-    }
-
-    .wave:nth-child(3) {
-      animation-delay: -4s;
-      background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.06), transparent);
-    }
-
-    @keyframes wave-move {
-      0%, 100% { transform: translateX(-50%) translateY(0px); }
-      50% { transform: translateX(-50%) translateY(-10px); }
-    }
+    /* Enhanced Waves - REMOVED */
 
     /* Unique card styles for each platform */
     .card-base {
@@ -286,25 +352,28 @@
       }
     }
 
-    /* Floating particles */
+    /* Floating particles - lighter, more star-like */
     .particle {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.1);
+      width: 2px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.4);
       border-radius: 50%;
-      animation: float 20s infinite linear;
+      animation: float-gentle 25s infinite linear;
     }
 
-    @keyframes float {
+    @keyframes float-gentle {
       0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
       100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
     }
   </style>
 </head>
 <body class="flex flex-col items-center relative">
+
+  <!-- Transition overlay for sky to ocean blend -->
+  <div class="transition-overlay"></div>
 
   <!-- Floating particles -->
   <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
@@ -317,32 +386,37 @@
   <div class="particle" style="left: 80%; animation-delay: 17s;"></div>
   <div class="particle" style="left: 90%; animation-delay: 3s;"></div>
 
-  <!-- Enhanced Stars -->
+  <!-- Enhanced Stars - Night Sky -->
   <div class="stars w-full">
-    <div class="star" style="top: 20%; left: 10%;"></div>
-    <div class="star" style="top: 30%; left: 25%;"></div>
-    <div class="star" style="top: 15%; left: 40%;"></div>
-    <div class="star" style="top: 40%; left: 60%;"></div>
-    <div class="star" style="top: 25%; left: 75%;"></div>
-    <div class="star" style="top: 35%; left: 85%;"></div>
-    <div class="star" style="top: 10%; left: 90%;"></div>
-    <div class="star" style="top: 45%; left: 5%;"></div>
-    <div class="star" style="top: 20%; left: 70%;"></div>
-    <div class="star" style="top: 35%; left: 45%;"></div>
-    <div class="star" style="top: 15%; left: 65%;"></div>
-    <div class="star" style="top: 40%; left: 20%;"></div>
-    <div class="star" style="top: 10%; left: 55%;"></div>
-    <div class="star" style="top: 45%; left: 35%;"></div>
-    <div class="star" style="top: 25%; left: 15%;"></div>
+    <div class="star star-small" style="top: 20%; left: 10%;"></div>
+    <div class="star star-medium" style="top: 30%; left: 25%;"></div>
+    <div class="star star-large" style="top: 15%; left: 40%;"></div>
+    <div class="star star-small" style="top: 40%; left: 60%;"></div>
+    <div class="star star-medium" style="top: 25%; left: 75%;"></div>
+    <div class="star star-small" style="top: 35%; left: 85%;"></div>
+    <div class="star star-large" style="top: 10%; left: 90%;"></div>
+    <div class="star star-small" style="top: 45%; left: 5%;"></div>
+    <div class="star star-medium" style="top: 20%; left: 70%;"></div>
+    <div class="star star-small" style="top: 35%; left: 45%;"></div>
+    <div class="star star-large" style="top: 15%; left: 65%;"></div>
+    <div class="star star-small" style="top: 40%; left: 20%;"></div>
+    <div class="star star-medium" style="top: 10%; left: 55%;"></div>
+    <div class="star star-small" style="top: 45%; left: 35%;"></div>
+    <div class="star star-large" style="top: 25%; left: 15%;"></div>
+    <div class="star star-small" style="top: 50%; left: 80%;"></div>
+    <div class="star star-medium" style="top: 8%; left: 30%;"></div>
+    <div class="star star-small" style="top: 38%; left: 92%;"></div>
+    <div class="star star-large" style="top: 18%; left: 3%;"></div>
+    <div class="star star-small" style="top: 32%; left: 52%;"></div>
   </div>
 
   <!-- Header -->
-  <header class="text-center mt-8 mb-16 z-10">
+  <header class="text-center mb-16 z-10">
     <h1 class="text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 text-transparent bg-clip-text mb-4 drop-shadow-lg">
       ✨ XQ Builds
     </h1>
     <p class="text-lg text-gray-300 max-w-lg mx-auto leading-relaxed">
-      Curated projects, creative sparks, and digital frontiers by XQBuilds.
+      Curated projects, creative sparks, and digital frontiers by XQ Builds.
     </p>
   </header>
 
@@ -463,16 +537,28 @@
 
   </main>
 
-  <!-- Enhanced Waves -->
-  <div class="waves w-full mt-32 relative">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
+  <!-- Deep Ocean Fireflies -->
+  <div class="fireflies">
+    <div class="firefly firefly-blue" style="bottom: 50px; left: 15%; animation-delay: 0s;"></div>
+    <div class="firefly firefly-cyan" style="bottom: 80px; left: 35%; animation-delay: 1s;"></div>
+    <div class="firefly firefly-teal" style="bottom: 30px; left: 65%; animation-delay: 2s;"></div>
+    <div class="firefly firefly-green" style="bottom: 120px; left: 85%; animation-delay: 0.5s;"></div>
+    <div class="firefly firefly-blue" style="bottom: 90px; left: 10%; animation-delay: 3s;"></div>
+    <div class="firefly firefly-cyan" style="bottom: 40px; left: 45%; animation-delay: 1.5s;"></div>
+    <div class="firefly firefly-teal" style="bottom: 70px; left: 75%; animation-delay: 2.5s;"></div>
+    <div class="firefly firefly-green" style="bottom: 60px; left: 25%; animation-delay: 4s;"></div>
+    <div class="firefly firefly-blue" style="bottom: 100px; left: 55%; animation-delay: 0.8s;"></div>
+    <div class="firefly firefly-cyan" style="bottom: 20px; left: 90%; animation-delay: 3.5s;"></div>
+    <div class="firefly firefly-teal" style="bottom: 110px; left: 5%; animation-delay: 1.2s;"></div>
+    <div class="firefly firefly-green" style="bottom: 35px; left: 70%; animation-delay: 2.8s;"></div>
+    <div class="firefly firefly-blue" style="bottom: 85px; left: 40%; animation-delay: 4.5s;"></div>
+    <div class="firefly firefly-cyan" style="bottom: 65px; left: 20%; animation-delay: 0.3s;"></div>
+    <div class="firefly firefly-teal" style="bottom: 45px; left: 80%; animation-delay: 3.8s;"></div>
   </div>
 
   <!-- Footer -->
   <footer class="text-sm text-gray-400 mt-12 mb-8 text-center">
-    © 2025 XQBuilds · All rights reserved
+    © 2025 XQ Builds · All rights reserved
   </footer>
 
   <script>
@@ -482,9 +568,9 @@
         el.style.animationDelay = `${i * 0.1}s`;
       });
 
-      // Add random particles periodically
+      // Add random particles periodically (gentler)
       setInterval(() => {
-        if (document.querySelectorAll('.particle').length < 15) {
+        if (document.querySelectorAll('.particle').length < 12) {
           const particle = document.createElement('div');
           particle.className = 'particle';
           particle.style.left = Math.random() * 100 + '%';
@@ -493,9 +579,29 @@
           
           setTimeout(() => {
             particle.remove();
-          }, 20000);
+          }, 25000);
         }
-      }, 3000);
+      }, 4000);
+
+      // Add random fireflies periodically
+      setInterval(() => {
+        if (document.querySelectorAll('.firefly').length < 20) {
+          const firefly = document.createElement('div');
+          const colors = ['firefly-blue', 'firefly-cyan', 'firefly-teal', 'firefly-green'];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          
+          firefly.className = `firefly ${randomColor}`;
+          firefly.style.bottom = Math.random() * 200 + 20 + 'px';
+          firefly.style.left = Math.random() * 100 + '%';
+          firefly.style.animationDelay = Math.random() * 3 + 's';
+          
+          document.querySelector('.fireflies').appendChild(firefly);
+          
+          setTimeout(() => {
+            firefly.remove();
+          }, 12000);
+        }
+      }, 2000);
     });
   </script>
 </body>
