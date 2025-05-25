@@ -2,32 +2,53 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>XQ Builds Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XQ Builds</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/a2c5e23f6d.js" crossorigin="anonymous"></script>
   <style>
     body {
-      background: linear-gradient(to bottom, #0f172a 0%, #1e293b 40%, #0f172a 80%);
+      background-color: #000;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Background layers */
+    .stars {
+      background: url('https://raw.githubusercontent.com/eeeps/starfield/master/starfield.png') repeat;
       background-size: cover;
+      height: 200px;
     }
 
-    .bg-stars {
-      background: repeating-radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 1px, transparent 2px),
-                  repeating-radial-gradient(circle at 80% 80%, rgba(255,255,255,0.04) 1px, transparent 2px);
-      background-size: 400px 400px;
-      animation: moveStars 60s linear infinite;
+    .mountains {
+      background: linear-gradient(to top, #0a0a0a 0%, #111111 40%, #222222 100%);
+      background-blend-mode: overlay;
+      height: 150px;
     }
 
-    @keyframes moveStars {
-      from { background-position: 0 0, 0 0; }
-      to { background-position: 1000px 1000px, 1000px 1000px; }
+    .waves {
+      background: linear-gradient(to top, #0d1b2a 0%, #000 100%);
+      clip-path: ellipse(80% 100% at 50% 100%);
+      height: 150px;
+    }
+
+    /* Card styles */
+    .glow-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 0 transparent;
+    }
+
+    .glow-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 16px rgba(0,255,255,0.15), 0 0 30px rgba(255,0,255,0.08);
     }
 
     .fade-in {
+      animation: fadeIn 0.8s ease forwards;
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.6s ease-out forwards;
+      transform: translateY(10px);
     }
 
     @keyframes fadeIn {
@@ -36,143 +57,158 @@
         transform: translateY(0);
       }
     }
-
-    .widget {
-      backdrop-filter: blur(10px);
-      background-color: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .widget:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 18px rgba(255,255,255,0.1);
-    }
   </style>
 </head>
-<body class="bg-stars text-white min-h-screen flex flex-col items-center justify-start pt-16 px-4">
+<body class="flex flex-col items-center">
 
-  <header class="text-center mb-12">
-    <h1 class="text-4xl font-bold tracking-wide text-white mb-2 font-mono">✨ XQ Builds</h1>
-    <p class="text-gray-400 text-sm">A cosmic dashboard of all things creative & technical</p>
+  <!-- Stars -->
+  <div class="stars w-full"></div>
+
+  <!-- Header -->
+  <header class="text-center mt-6 mb-14">
+    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight bg-gradient-to-r from-teal-400 via-cyan-500 to-indigo-400 text-transparent bg-clip-text mb-2">
+      ✨ XQ Builds
+    </h1>
+    <p class="text-sm text-gray-400 max-w-md mx-auto">
+      Curated projects, creative sparks, and digital frontiers by XQBuilds.
+    </p>
   </header>
 
-  <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+  <!-- Grid of Links -->
+  <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 max-w-6xl w-full">
 
-    <!-- Define a reusable component style -->
-    <a href="https://www.linkedin.com/in/aditya-vivek-thota/" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300">
-      <div class="flex items-center space-x-4">
-        <i class="fab fa-linkedin text-[#0077b5] text-xl"></i>
-        <span>LinkedIn</span>
+    <a href="https://www.linkedin.com/in/aditya-vivek-thota/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-teal-300 font-semibold text-lg">LinkedIn 🌐</span>
+        <span>💼</span>
       </div>
+      <p class="text-sm text-gray-400">Connect with my professional journey.</p>
     </a>
 
-    <a href="https://x.com/xq_is_here" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-100">
-      <div class="flex items-center space-x-4">
-        <i class="fab fa-x-twitter text-white text-xl"></i>
-        <span>Twitter / X</span>
+    <a href="https://x.com/xq_is_here" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-blue-400 font-semibold text-lg">Twitter / X 🐦</span>
+        <span>📢</span>
       </div>
+      <p class="text-sm text-gray-400">Thoughts, threads & tech tweets.</p>
     </a>
 
-    <a href="https://www.instagram.com/xqbuilds" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-200">
-      <div class="flex items-center space-x-4">
-        <i class="fab fa-instagram text-pink-500 text-xl"></i>
-        <span>Instagram</span>
+    <a href="https://www.instagram.com/xqbuilds" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-pink-400 font-semibold text-lg">Instagram 📸</span>
+        <span>🎨</span>
       </div>
+      <p class="text-sm text-gray-400">Snapshots from my creative side.</p>
     </a>
 
-    <a href="https://www.youtube.com/@xqbuilds" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-300">
-      <div class="flex items-center space-x-4">
-        <i class="fab fa-youtube text-red-500 text-xl"></i>
-        <span>YouTube</span>
+    <a href="https://www.youtube.com/@xqbuilds" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-red-400 font-semibold text-lg">YouTube 🎥</span>
+        <span>▶️</span>
       </div>
+      <p class="text-sm text-gray-400">Visual experiments & explainers.</p>
     </a>
 
-    <a href="https://xq-is-here.medium.com/" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-400">
-      <div class="flex items-center space-x-4">
-        <i class="fab fa-medium text-white text-xl"></i>
-        <span>Medium</span>
+    <a href="https://xq-is-here.medium.com/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-white font-semibold text-lg">Medium ✍️</span>
+        <span>📚</span>
       </div>
+      <p class="text-sm text-gray-400">Essays, tutorials & explorations in tech.</p>
     </a>
 
-    <a href="https://github.com/aditya-xq" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-500">
-      <div class="flex items-center space-x-4">
-        <i class="fab fa-github text-gray-300 text-xl"></i>
-        <span>GitHub</span>
+    <a href="https://github.com/aditya-xq" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-gray-300 font-semibold text-lg">GitHub 💻</span>
+        <span>🚀</span>
       </div>
+      <p class="text-sm text-gray-400">Codebases behind the builds.</p>
     </a>
 
-    <!-- Projects -->
-    <a href="https://medium.com/the-research-nest" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-600">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-flask text-purple-400 text-xl"></i>
-        <span>The Research Nest</span>
+    <a href="https://medium.com/the-research-nest" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-green-300 font-semibold text-lg">The Research Nest 🪺</span>
+        <span>🧠</span>
       </div>
+      <p class="text-sm text-gray-400">STEM stories & scientific ideas.</p>
     </a>
 
-    <a href="https://github.com/aditya-xq/AutoProject" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-700">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-robot text-green-400 text-xl"></i>
-        <span>AutoProject</span>
+    <a href="https://github.com/aditya-xq/AutoProject" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-purple-300 font-semibold text-lg">AutoProject 🤖</span>
+        <span>🛠️</span>
       </div>
+      <p class="text-sm text-gray-400">Build boilerplates at lightspeed.</p>
     </a>
 
-    <a href="https://techflix.xqbuilds.com/" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-800">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-film text-indigo-400 text-xl"></i>
-        <span>TechFlix</span>
+    <a href="https://techflix.xqbuilds.com/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-pink-300 font-semibold text-lg">TechFlix 📺</span>
+        <span>🎬</span>
       </div>
+      <p class="text-sm text-gray-400">150+ tech blogs on a single feed!</p>
     </a>
 
-    <a href="https://www.altcss.com/" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-900">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-palette text-pink-400 text-xl"></i>
-        <span>AltCSS</span>
+    <a href="https://www.altcss.com/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-yellow-300 font-semibold text-lg">AltCSS 🎨</span>
+        <span>🧵</span>
       </div>
+      <p class="text-sm text-gray-400">Opinionated, Offbeat, Lightweight CSS Component Library</p>
     </a>
 
-    <a href="https://xqbuilds.com/" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-[1000ms]">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-tools text-cyan-300 text-xl"></i>
-        <span>xqbuilds</span>
+    <a href="https://xqbuilds.com/" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-blue-300 font-semibold text-lg">xqbuilds 🌐</span>
+        <span>✨</span>
       </div>
+      <p class="text-sm text-gray-400">The digital garden of everything XQ.</p>
     </a>
 
-    <a href="https://medium.com/school-of-self-learning" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-[1100ms]">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-book-reader text-yellow-400 text-xl"></i>
-        <span>School of Self Learning</span>
+    <a href="https://medium.com/school-of-self-learning" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-indigo-300 font-semibold text-lg">Self Learning School 🏫</span>
+        <span>🧩</span>
       </div>
+      <p class="text-sm text-gray-400">Learn anything. Anytime. Anywhere.</p>
     </a>
 
-    <a href="#" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-[1200ms]">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-layer-group text-gray-400 text-xl"></i>
-        <span>The Next Weave (Coming Soon)</span>
+    <div class="glow-card fade-in p-5 rounded-xl space-y-1 opacity-50 cursor-not-allowed">
+      <div class="flex items-center justify-between">
+        <span class="font-semibold text-lg">The Next Weave 🕸️</span>
+        <span>⏳</span>
       </div>
-    </a>
+      <p class="text-sm text-gray-400">Coming soon: your future network.</p>
+    </div>
 
-    <a href="https://medium.com/the-eden-of-xq" target="_blank" class="fade-in widget rounded-xl p-5 transition-transform duration-300 delay-[1300ms]">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-seedling text-red-300 text-xl"></i>
-        <span>Eden of XQ</span>
+    <a href="https://medium.com/the-eden-of-xq" class="glow-card fade-in p-5 rounded-xl space-y-1">
+      <div class="flex items-center justify-between">
+        <span class="text-emerald-300 font-semibold text-lg">Eden of XQ 📖</span>
+        <span>🌿</span>
       </div>
+      <p class="text-sm text-gray-400">Personal reflections and digital diaries.</p>
     </a>
 
   </main>
 
-  <footer class="mt-16 text-center text-sm text-gray-500">
-    © 2025 Aditya Vivek Thota · All Rights Reserved
+  <!-- Mountains -->
+  <div class="mountains w-full mt-24"></div>
+
+  <!-- Waves -->
+  <div class="waves w-full"></div>
+
+  <!-- Footer -->
+  <footer class="text-sm text-gray-500 mt-10 mb-6 text-center">
+    © 2025 Aditya Vivek Thota · All rights reserved
   </footer>
 
   <script>
-    // Trigger fade-ins sequentially on load
     window.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.fade-in').forEach((el, i) => {
-        el.style.animationDelay = `${i * 0.05}s`;
+        el.style.animationDelay = `${i * 0.06}s`;
         el.classList.add('fade-in');
       });
     });
   </script>
-
 </body>
 </html>
